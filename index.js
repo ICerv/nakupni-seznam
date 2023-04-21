@@ -1,3 +1,4 @@
+/*
 const items = [
   {
     id: 'MFJSFr',
@@ -28,3 +29,25 @@ document.querySelector('.shopping-list').innerHTML +=
 </li>
   `
   }).join('')
+  */
+
+const renderShoppingList = (items) => {
+  const shoppingList = document.querySelector('.shopping-list');
+  if (shoppingList) {
+    shoppingList.innerHTML = items.map((item) => {
+      return `
+          <div class="list-item">
+            <div class="list-item__product">${item.product}</div>
+            <div class="list-item__amount">${item.amount}</div>
+          </div>
+        `;
+    })
+      .join('');
+  }
+};
+
+
+fetch('https://nakupy.kodim.app/api/sampleweek/mon/items')
+  .then((response) => response.json())
+  .then((data) => renderShoppingList(data.result))
+  //.catch((error) => console.error(error));
